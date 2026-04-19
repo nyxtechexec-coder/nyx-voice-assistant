@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'core/navigation/app_router.dart';
 
 void main() {
   runApp(const NyxVoiceAssistantApp());
@@ -12,11 +13,8 @@ class NyxVoiceAssistantApp extends StatelessWidget {
     return MaterialApp(
       title: 'Nyx Voice Assistant',
       theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal)),
-      home: const Scaffold(
-        body: Center(
-          child: Text('Nyx Voice Assistant scaffold is ready'),
-        ),
-      ),
+      initialRoute: AppRouter.login,
+      routes: AppRouter.routes,
     );
   }
 }
