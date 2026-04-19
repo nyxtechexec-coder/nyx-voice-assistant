@@ -39,3 +39,8 @@ uvicorn app.main:app --reload --port 8100
 - realtime STT streaming
 - TTS generation service
 - orchestrator wiring
+
+
+## Notes
+- API startup now initializes a local SQLite database automatically.
+- Current auth and persistence layers are scaffolds and should be replaced with production-ready implementations in later passes.
