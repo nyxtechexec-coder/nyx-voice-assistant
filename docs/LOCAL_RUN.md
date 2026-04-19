@@ -23,3 +23,19 @@ uvicorn app.main:app --reload
 - POST /conversations
 - GET /conversations/{conversation_id}/messages
 - POST /conversations/{conversation_id}/messages
+
+
+## Realtime Gateway
+```bash
+cd services/realtime_gateway
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --port 8100
+```
+
+## Next Planned Runtime Pieces
+- persistent database integration
+- realtime STT streaming
+- TTS generation service
+- orchestrator wiring
