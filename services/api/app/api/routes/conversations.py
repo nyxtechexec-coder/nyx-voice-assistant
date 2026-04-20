@@ -1,4 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from app.db.deps import get_db
 from app.schemas.conversation import (
     ConversationCreateRequest,
     ConversationResponse,
@@ -16,20 +18,20 @@ router = APIRouter(prefix="/conversations", tags=["conversations"])
 
 
 @router.get("", response_model=list[ConversationResponse])
-def list_conversations_endpoint():
-    return list_conversations()
+def list_conversations_endpoint(db: Session = Depends(get_db)):
+    return list_conversations(db)
 
 
 @router.post("", response_model=ConversationResponse)
-def create_conversation_endpoint(payload: ConversationCreateRequest):
-    return create_conversation(payload)
+def create_conversation_endpoint(payload: ConversationCreateRequest, db: Session = Depends(get_db)):
+    return create_conversation(db, payload)
 
 
 @router.get("/{conversation_id}/messages", response_model=list[MessageResponse])
-def list_messages_endpoint(conversation_id: str):
-    return list_messages(conversation_id)
+def list_messages_endpoint(conversation_id: str, db: Session = Depends(get_db)):
+    return list_messages(db, conversation_id)
 
 
 @router.post("/{conversation_id}/messages", response_model=MessageResponse)
-def create_message_endpoint(conversation_id: str, payload: MessageCreateRequest):
-    return add_message(conversation_id, payload)
+def create_message_endpoint(conversation_id: str, payload: MessageCreateRequest, db: Session = Depends(get_db)):
+    return add_message(db, conversation_id, payload)
